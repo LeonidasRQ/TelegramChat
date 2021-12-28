@@ -13,6 +13,7 @@ const mySchema = new Schema({
   },
   message: { type: String, required: true },
   date: Date,
+  file: String,
 });
 
 const model = mongoose.model("Message", mySchema);
