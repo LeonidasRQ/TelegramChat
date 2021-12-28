@@ -1,19 +1,25 @@
 const express = require("express");
+const app = express();
+const server = require("http").Server(app);
+
 const bodyParser = require("body-parser");
-
-//const router = require("./components/message/network");
-const router = require("./network/routes");
+const socket = require("./socket");
 const db = require("./db");
-const uri =
-  "mongodb+srv://db_user:isl8Xsj7X9VcFw8t@cluster0.zmg4s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-db(uri);
+const router = require("./network/routes");
 
-var app = express();
+db(
+  "mongodb+srv://db_user:isl8Xsj7X9VcFw8t@cluster0.zmg4s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(router);
+
+socket.connect(server);
+
 router(app);
 
 app.use("/app", express.static("public"));
-app.listen(3000);
-console.log("La aplicación está escuchando en http://localhost:3000");
+
+server.listen(3000, function () {
+  console.log("La aplicación está escuchando en http://localhost:3000");
+});
