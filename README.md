@@ -1,3 +1,3 @@
 # TelegramChat
 
-A Backend API for Telegram Chat clone with Node.js
+A chat API with Node.js MongoDB Websockets and Express.js
